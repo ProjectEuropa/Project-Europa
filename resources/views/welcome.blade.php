@@ -5,7 +5,10 @@
 @endsection
 
 @section('content')
-<main>
+<div id="top">
+	<top/>
+</div>
+{{--  <main>
     <div id="main-carousel" class="carousel">
         <div class="europa-inner">
             <div class="item active">
@@ -83,9 +86,11 @@
             </div>
         </div>
     </div>
-</main>
+</main>  --}}
 @endsection
 
 @section('js')
 <script src="{{ asset('js/app.js') }}"></script>
+<script src="{{ asset('js/top.js') }}"></script>
+
 @endsection

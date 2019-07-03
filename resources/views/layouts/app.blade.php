@@ -5,10 +5,11 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="csrf-token" content="{{ csrf_token() }}">
+    @include('modules.laravelpwa.meta')
     <title>Europa</title>
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
-    <link href="{{ asset('css/material.css') }}" rel="stylesheet">
-    <link href="{{ asset('css/top.css') }}" rel="stylesheet">
+    {{-- <link href="{{ asset('css/material.css') }}" rel="stylesheet"> --}}
+    {{-- <link href="{{ asset('css/top.css') }}" rel="stylesheet"> --}}
     <script>
         window.myToken =  <?php echo json_encode([
             'csrfToken' => csrf_token(),
@@ -17,7 +18,10 @@
     @yield('css')
 </head>
 <body>
-        <header>
+		<div id="header">
+        <the-Header auth="{{Auth::user()}}"></the-Header>
+    </div>
+        {{-- <header>
             <nav class="navbar navbar-expand-lg">
                 <div class="container">
                     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
@@ -103,7 +107,7 @@
                     </div>
                 </div>
             </nav>
-        </header>
+        </header> --}}
 
         @yield('content')
         <footer>
@@ -111,11 +115,12 @@
                 <small>© 2016-<span id="nowYear"></span> Team Project Europa</small>
             </div>
         </footer>
-        
+
         <script>
             document.getElementById("nowYear").innerText = new Date().getFullYear();
         </script>
-        <script src="{{ asset('js/material.js') }}"></script>
+				{{-- <script src="{{ asset('js/material.js') }}"></script> --}}
+				<script src="{{ asset('js/header.js') }}"></script>
         @yield('js')
 </body>
 </html>
