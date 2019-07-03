@@ -1,0 +1,44 @@
+version: "3"
+services:
+  nginx:
+    image: nginx:alpine
+    depends_on:
+      - php-fpm
+    ports:
+      - 80:80
+      - 443:443
+    volumes:
+      - ../:/var/www/html
+      - ./nginx/nginx.conf:/etc/nginx/conf.d/default.conf
+      - ./nginx/cert-key:/etc/nginx/ssl
+  php-fpm:
+    build:
+      context: ./php-fpm
+    depends_on:
+      - pg
+    ports:
+      - 9000:9000
+    volumes:
+      - ../:/var/www/html
+      - exclude:/var/www/html/node_modules
+  pg:
+    image: postgres:9.2
+    restart: always
+    ports:
+      - 54321:5432
+    environment:
+      - POSTGRES_DB=testdb
+      - POSTGRES_USER=root
+      - POSTGRES_PASSWORD=password
+    volumes:
+      - ./data:/var/lib/postgresql/data:delegated
+    container_name: "pg-pe"
+  node:
+    image: node:8.15.1-alpine #8が使いたいので8を指定
+    user: node
+    working_dir: /home/node/app
+    volumes:
+      - ../:/home/node/app #package.jsonがあるディレクトリをmountすること
+
+volumes:
+  exclude:
