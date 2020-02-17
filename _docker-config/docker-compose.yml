@@ -15,6 +15,17 @@ services:
       - 80:80
     depends_on:
       - app
+      - db
     volumes:
       - ./nginx.conf:/etc/nginx/conf.d/default.conf
       - ../:/var/www/html
+  db:
+    image: postgres:10
+    ports: 
+      - 5432:5432
+    environment:
+      POSTGRES_USER: root
+      POSTGRES_PASSWORD: root
+    volumes:
+      - ./data:/var/lib/postgresql/data
+    container_name: pgsqle
